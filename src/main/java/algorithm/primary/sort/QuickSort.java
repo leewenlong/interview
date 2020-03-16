@@ -1,4 +1,4 @@
-package algorithm.common.sort;
+package algorithm.primary.sort;
 
 public class QuickSort {
     /**
