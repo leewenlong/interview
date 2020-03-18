@@ -1,1 +1,1 @@
-#### 此包下为剑指Offer中的题，所有代码均已在牛客网(newcoder.com)验证
+#### 此包下为剑指Offer中的题，所有代码均已在牛客网(nowcoder.com)验证
