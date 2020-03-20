@@ -1,7 +1,6 @@
 package algorithm.leetcode;
 
 import java.util.LinkedList;
-import java.util.Stack;
 
 public class A678_ValidParenthesisString {
     public boolean checkValidString(String s) {
@@ -43,6 +42,7 @@ public class A678_ValidParenthesisString {
 
     /**
      * 第二种代码简单易懂的方法
+     *
      * @param s
      * @return
      */
@@ -90,6 +90,7 @@ public class A678_ValidParenthesisString {
     /**
      * 主要想法是在匹配完左括号数量不为0时，把*当作右括号
      * 如果最后）数量小于0，则证明把*全部当作(都不够用，匹配失败
+     *
      * @param s
      * @return
      */

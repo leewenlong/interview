@@ -1,6 +1,7 @@
 package algorithm.leetcode;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class A17_LetterCombinationsOfAPhoneNumber {
 
@@ -57,11 +58,11 @@ public class A17_LetterCombinationsOfAPhoneNumber {
         for (int i = 0; i < digits.length(); i++) {
             int number = (int) digits.charAt(i) - (int) '2';
             String letters = phoneNumber[number];
-            while (result.getFirst().length()==i){
+            while (result.getFirst().length() == i) {
                 String temp = result.removeFirst();
                 for (int j = 0; j < letters.length(); j++) {
                     String str = String.valueOf(letters.charAt(j));
-                    result.add(temp+str);
+                    result.add(temp + str);
                 }
             }
         }

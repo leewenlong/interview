@@ -9,15 +9,18 @@ public class A2_AddTwoNumbers {
         ListNode n11 = new ListNode(5);
         ListNode n22 = new ListNode(6);
         ListNode n33 = new ListNode(4);
-        n1.next = n2;n2.next=n3;
-        n11.next=n22;n22.next=n33;
-        ListNode r = new A2_AddTwoNumbers().addTwoNumbers(n1,n11);
+        n1.next = n2;
+        n2.next = n3;
+        n11.next = n22;
+        n22.next = n33;
+        ListNode r = new A2_AddTwoNumbers().addTwoNumbers(n1, n11);
 
-        while (r!=null){
+        while (r != null) {
             System.out.println(r.val);
             r = r.next;
         }
     }
+
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         if (l1 == null || l2 == null) {
             return null;
@@ -60,7 +63,7 @@ public class A2_AddTwoNumbers {
 
         @Override
         public String toString() {
-            return val+"";
+            return val + "";
         }
     }
 }

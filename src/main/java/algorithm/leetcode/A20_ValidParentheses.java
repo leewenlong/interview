@@ -6,12 +6,14 @@ import java.util.Stack;
 
 public class A20_ValidParentheses {
     Stack<Character> stack = new Stack<>();
-    static Map<Character,Character> map = new HashMap<>();
+    static Map<Character, Character> map = new HashMap<>();
+
     {
-        map.put(')','(');
-        map.put(']','[');
-        map.put('}','{');
+        map.put(')', '(');
+        map.put(']', '[');
+        map.put('}', '{');
     }
+
     public boolean isValid(String s) {
         if (s == null || s.length() < 2) {
             return false;
