@@ -16,12 +16,4 @@ public class PrintListFromTail2Head {
         }
         return list;
     }
-    static class ListNode {
-        int val;
-        ListNode next = null;
-
-        ListNode(int val) {
-            this.val = val;
-        }
-    }
 }

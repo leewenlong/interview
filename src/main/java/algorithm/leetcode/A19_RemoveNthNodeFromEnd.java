@@ -20,13 +20,4 @@ public class A19_RemoveNthNodeFromEnd {
 
         return dummy.next;
     }
-
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
 }

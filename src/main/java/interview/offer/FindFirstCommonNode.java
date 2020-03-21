@@ -20,13 +20,4 @@ public class FindFirstCommonNode {
         }
         return node1;
     }
-
-    static class ListNode {
-        int val;
-        ListNode next = null;
-
-        ListNode(int val) {
-            this.val = val;
-        }
-    }
 }

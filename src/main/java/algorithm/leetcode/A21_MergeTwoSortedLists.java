@@ -19,12 +19,4 @@ public class A21_MergeTwoSortedLists {
 
     }
 
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
 }
