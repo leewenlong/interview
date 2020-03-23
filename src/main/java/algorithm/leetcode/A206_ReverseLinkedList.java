@@ -1,7 +1,5 @@
 package algorithm.leetcode;
 
-import java.util.List;
-
 public class A206_ReverseLinkedList {
     public ListNode reverseList(ListNode head) {
         if (null == head || head.next == null) {
