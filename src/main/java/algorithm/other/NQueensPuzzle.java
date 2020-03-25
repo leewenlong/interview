@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class NQueenQuestion {
+public class NQueensPuzzle {
 
     private List<int[][]> nQ = new ArrayList<>();
 
@@ -56,15 +56,24 @@ public class NQueenQuestion {
     }
 
     public static void main(String[] args) {
-        NQueenQuestion q = new NQueenQuestion();
+        NQueensPuzzle q = new NQueensPuzzle();
 
         List<int[][]> nQueue = q.nQueen(8);
         for (int[][] listList : nQueue) {
-            for (int[] i : listList) {
-                System.out.println(Arrays.toString(i));
-            }
-            System.out.println();
+            printMatrix(listList);
         }
 
     }
+
+    public static void printMatrix(int[][] matrix) {
+        if (matrix == null) {
+            return;
+        }
+        for (int[] i : matrix) {
+            System.out.println(Arrays.toString(i));
+        }
+        System.out.println();
+
+    }
+
 }
