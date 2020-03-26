@@ -3,6 +3,7 @@ package algorithm.leetcode;
 import java.util.*;
 
 public class BinaryTree {
+    public static final String newline = System.getProperty("line.separator");
 
     public TreeNode build(TreeNode root, int next) {
         if (root == null) {
@@ -173,13 +174,7 @@ public class BinaryTree {
         }
         List<Integer> path = new ArrayList<>();
         List<List<Integer>> all = new ArrayList<>();
-        path.add(root.val);
-        if (root.left != null) {
-            findAllPathBacktrack(all, path, root.left);
-        }
-        if (root.right != null) {
-            findAllPathBacktrack(all, path, root.right);
-        }
+        findAllPathBacktrack(all, path, root);
         return all;
     }
 
@@ -193,36 +188,29 @@ public class BinaryTree {
             if (node.left != null) {
                 findAllPathBacktrack(all, path, node.left);
             }
-            path.remove(path.size() - 1);
-            path.add(node.val);
             if (node.right != null) {
                 findAllPathBacktrack(all, path, node.right);
             }
             path.remove(path.size() - 1);
         }
-
     }
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode a, TreeNode b) {
         if (root == null) {
             return null;
         }
-        //TODO
+        if (root == a || root == b) {
+            return root;
+        }
 
-        return null;
+        TreeNode left = lowestCommonAncestor(root.left, a, b);
+        TreeNode right = lowestCommonAncestor(root.right, a, b);
+        if (left != null && right != null) {//找到a和b在root结点的左右子树上
+            return root;
+        }
+        return left == null ? right : left;
     }
 
-    private boolean isEquals(List<Integer> a, List<Integer> b) {
-        if (a.size() != b.size()) {
-            return false;
-        }
-        for (int i = 0; i < a.size(); i++) {
-            if (!a.get(i).equals(b.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     public static void main(String[] args) {
         Random random = new Random();
@@ -237,44 +225,68 @@ public class BinaryTree {
         List<Integer> pre1 = new ArrayList<>();
         tree.preorder(root, pre);
         tree.preorderII(root, pre1);
-        System.out.println(tree.isEquals(pre, pre1));
-        System.out.println("    pre:" + pre);
+        System.out.println("preorder use recurision and stack result equals : " + pre.equals(pre1));
+        System.out.println("preorder result : " + pre + newline);
 
         List<Integer> in = new ArrayList<>();
         List<Integer> in1 = new ArrayList<>();
         tree.inorder(root, in);
         tree.inorderII(root, in1);
-        System.out.println(tree.isEquals(in, in1));
-        System.out.println("    in:" + in);
+        System.out.println("inorder use recurision and stack result equals : " + tree.equals(in1));
+        System.out.println("inorder result : " + in + newline);
 
         List<Integer> post = new ArrayList<>();
         List<Integer> post1 = new ArrayList<>();
         tree.postorder(root, post);
         tree.postorderII(root, post1);
-        System.out.println(tree.isEquals(post, post1));
-        System.out.println("    post:" + post);
+        System.out.println("postorder use recurision and stack result equals : " + post.equals(post1));
+        System.out.println("postorder : " + post + newline);
 
         List<Integer> level = new ArrayList<>();
         tree.levelOrder(root, level);
-        System.out.println("    level:" + level);
+        System.out.println("levelorder : " + level + newline);
 
-        System.out.println("    height:" + tree.height(root));
+        System.out.println("height or depth : " + tree.height(root) + newline);
 
-        System.out.println("    count:" + tree.countNode(root));
+        System.out.println("total node count : " + tree.countNode(root) + newline);
 
-        System.out.println("    leaves:" + tree.countLeaves(root));
+        System.out.println("leaf node count : " + tree.countLeaves(root) + newline);
 
-        System.out.println("    3LevelCount:" + tree.kthLevelCount(root, 3));
+        System.out.println("3th level node count : " + tree.kthLevelCount(root, 3) + newline);
 
         tree.mirror(root);
         List<Integer> mirrorLevel = new ArrayList<>();
         tree.levelOrder(root, mirrorLevel);
-        System.out.println("    mirror-level:" + mirrorLevel);
+        System.out.println("mirror levelorder : " + mirrorLevel + newline);
         tree.mirror(root);
 
-        List<List<Integer>> allPath = tree.findAllPath(root);
+        List<List<Integer>> pathA = tree.findAllPath(root);
+        System.out.println("all path to leaf : " + pathA + newline);
 
-        System.out.println(allPath);
+        TreeNode node1 = new TreeNode(10);
+        TreeNode node2 = new TreeNode(7);
+        TreeNode node3 = new TreeNode(15);
+        TreeNode node4 = new TreeNode(4);
+        TreeNode node5 = new TreeNode(9);
+        TreeNode node6 = new TreeNode(12);
+        TreeNode node7 = new TreeNode(18);
+        TreeNode node8 = new TreeNode(0);
+        TreeNode node9 = new TreeNode(5);
+        TreeNode node10 = new TreeNode(6);
+        TreeNode node11 = new TreeNode(20);
+        node1.left = node2;
+        node1.right = node3;
+        node2.left = node4;
+        node2.right = node5;
+        node3.left = node6;
+        node3.right = node7;
+        node4.left = node8;
+        node4.right = node9;
+        node9.right = node10;
+        node7.right = node11;
+        TreeNode lca = tree.lowestCommonAncestor(node1, node4, node5);
+        System.out.println(lca.val);
+
     }
 
 }
