@@ -40,15 +40,22 @@ public class NQueensPuzzle {
 
     //其实只要检测（row,col）之前的数据即可，之后的数据都是0
     private boolean isValid(int[][] matrix, int row, int col) {
-        //valid col
-        for (int i = 0; i < matrix[row].length; i++) {
-            if (matrix[row][i] == 1 && col != i) {
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            if (matrix[row][i] == 1 && col != i) {//valid col
+                return false;
+            }
+            if (matrix[i][col] == 1 && i != row) {
+                return false;//valid row
+            }
+        }
+        for (int i = row-1, j = col-1 ; i >=0 && j>=0; i--,j--) {
+            if (matrix[i][j] == 1){//left up
                 return false;
             }
         }
-        //valid row
-        for (int i = 0; i < matrix.length; i++) {
-            if (matrix[i][col] == 1 && i != row) {
+        for (int i = row-1 ,j = col+1; i >=0 && j<n ; i--,j++) {
+            if (matrix[i][j] == 1){//right up
                 return false;
             }
         }
