@@ -168,6 +168,27 @@ public class BinaryTree {
         mirror(root.right);
     }
 
+    public void mirrorII(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()){
+            TreeNode node = queue.remove();
+            TreeNode t = node.left;
+            node.left = node.right;
+            node.right = t;
+            if (null!=node.left){
+                queue.add(node.left);
+            }
+            if (null !=node.right) {
+                queue.add(node.right);
+            }
+
+        }
+    }
+
     public List<List<Integer>> findAllPath(TreeNode root) {
         if (root == null) {
             return null;
@@ -211,6 +232,93 @@ public class BinaryTree {
         return left == null ? right : left;
     }
 
+    public TreeNode lowestCommonAncestor(TreeNode root, int a, int b) {
+        if (root == null) {
+            return null;
+        }
+        if (root.val == a || root.val == b) {
+            return root;
+        }
+
+        TreeNode left = lowestCommonAncestor(root.left, a, b);
+        TreeNode right = lowestCommonAncestor(root.right, a, b);
+        if (left != null && right != null) {
+            return root;
+        }
+        return left == null ? right : left;
+    }
+
+    public int getDistance(TreeNode root, TreeNode a, TreeNode b) {
+        TreeNode ancestor = lowestCommonAncestor(root, a, b);
+        if (ancestor == null) {
+            return -1;
+        }
+        return getDistance(ancestor,a.val)+getDistance(ancestor,b.val);
+    }
+
+    public int getDistance(TreeNode root, int a, int b) {
+        TreeNode ancestor = lowestCommonAncestor(root, a, b);
+        if (ancestor == null) {
+            return -1;
+        }
+        return getDistance(ancestor,a)+getDistance(ancestor,b);
+    }
+
+    private int getDistance(TreeNode ancestor, int child) {
+        int distance = 0;
+        if (ancestor.val == child){
+            return distance;
+        }
+        if (ancestor.left != null){
+             distance = getDistance(ancestor.left, child)+1;
+            if (distance >0){
+                return distance;
+            }
+        }
+        if (ancestor.right!=null){
+            distance = getDistance(ancestor.right, child)+1;
+            if (distance >0){
+                return distance;
+            }
+        }
+
+        return -1;
+    }
+
+    public List<Integer> findAllAncestor(TreeNode root, TreeNode node) {
+        List<Integer> list = new ArrayList<>();
+        if (root == null) {
+            return list;
+        }
+        findAllAncestor(root,node.val,list);
+        return list;
+    }
+
+    public List<Integer> findAllAncestor(TreeNode root, int node) {
+        List<Integer> list = new ArrayList<>();
+        if (root == null) {
+            return list;
+        }
+        findAllAncestor(root,node,list);
+        return list;
+    }
+
+    private boolean findAllAncestor(TreeNode root, int val, List<Integer> list) {
+        if (root.val == val){
+            return true;
+        }else {
+            list.add(root.val);
+            if (root.left != null && findAllAncestor(root.left,val,list)) {
+                return true;
+            }
+            if (root.right !=null && findAllAncestor(root.right,val,list)){
+                return true;
+            }
+            list.remove(list.size()-1);
+            return false;
+        }
+    }
+
 
     public static void main(String[] args) {
         Random random = new Random();
@@ -225,26 +333,26 @@ public class BinaryTree {
         List<Integer> pre1 = new ArrayList<>();
         tree.preorder(root, pre);
         tree.preorderII(root, pre1);
-        System.out.println("preorder use recurision and stack result equals : " + pre.equals(pre1));
+        System.out.println("preorder use recursion and stack result equals : " + pre.equals(pre1));
         System.out.println("preorder result : " + pre + newline);
 
         List<Integer> in = new ArrayList<>();
         List<Integer> in1 = new ArrayList<>();
         tree.inorder(root, in);
         tree.inorderII(root, in1);
-        System.out.println("inorder use recurision and stack result equals : " + tree.equals(in1));
+        System.out.println("inorder use recursion and stack result equals : " + tree.equals(in1));
         System.out.println("inorder result : " + in + newline);
 
         List<Integer> post = new ArrayList<>();
         List<Integer> post1 = new ArrayList<>();
         tree.postorder(root, post);
         tree.postorderII(root, post1);
-        System.out.println("postorder use recurision and stack result equals : " + post.equals(post1));
+        System.out.println("postorder use recursion and stack result equals : " + post.equals(post1));
         System.out.println("postorder : " + post + newline);
 
         List<Integer> level = new ArrayList<>();
         tree.levelOrder(root, level);
-        System.out.println("levelorder : " + level + newline);
+        System.out.println("level order : " + level + newline);
 
         System.out.println("height or depth : " + tree.height(root) + newline);
 
@@ -257,12 +365,37 @@ public class BinaryTree {
         tree.mirror(root);
         List<Integer> mirrorLevel = new ArrayList<>();
         tree.levelOrder(root, mirrorLevel);
-        System.out.println("mirror levelorder : " + mirrorLevel + newline);
-        tree.mirror(root);
+        System.out.println("mirror level order : " + mirrorLevel + newline);
+        tree.mirrorII(root);
+        mirrorLevel.clear();
+        tree.levelOrder(root,mirrorLevel);
+        System.out.println("mirrorII equals level order : " + mirrorLevel.equals(level) + newline);
 
         List<List<Integer>> pathA = tree.findAllPath(root);
         System.out.println("all path to leaf : " + pathA + newline);
 
+        TreeNode testTree = buildTestTree();
+        TreeNode lca = tree.lowestCommonAncestor(testTree, 4, 9);
+        System.out.println("find common ancestor : "+(lca.val == 7)+newline);
+
+        System.out.println("node 4 & 12 distance is : "+tree.getDistance(testTree,4,12)+newline);
+
+        System.out.println("node 12 all ancestor is : "+tree.findAllAncestor(testTree,12)+newline);
+
+    }
+
+    /*
+                10
+              /    \
+             7     15
+            / \   /  \
+           4   9 12  18
+          / \          \
+         0   5         20
+              \
+               6
+     */
+    public static TreeNode buildTestTree(){
         TreeNode node1 = new TreeNode(10);
         TreeNode node2 = new TreeNode(7);
         TreeNode node3 = new TreeNode(15);
@@ -284,9 +417,7 @@ public class BinaryTree {
         node4.right = node9;
         node9.right = node10;
         node7.right = node11;
-        TreeNode lca = tree.lowestCommonAncestor(node1, node4, node5);
-        System.out.println(lca.val);
-
+        return node1;
     }
 
 }
