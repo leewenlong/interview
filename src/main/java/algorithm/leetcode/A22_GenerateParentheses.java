@@ -23,7 +23,7 @@ public class A22_GenerateParentheses {
             next(list, s + '(', left + 1, right, n);
         }
         if (right < left) {
-            next(list, s + '(', left, right + 1, n);
+            next(list, s + ')', left, right + 1, n);
         }
     }
 
