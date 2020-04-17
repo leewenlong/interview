@@ -1,7 +1,5 @@
 package algorithm.leetcode;
 
-import jdk.nashorn.internal.ir.LiteralNode;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
